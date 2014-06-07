@@ -20,8 +20,10 @@ var income = 0;
 
 //stats
 var stat_website = 0;
+var stat_logo = 0;
 var stat_asset = 0;
 var stat_money = 0;
+var stat_employees = 0;
 
 function startJS() {
     setInterval("intervalGain()", 100);
@@ -75,7 +77,7 @@ function updateText() {
     document.getElementById("resources_assets").innerHTML = "<b>Assets: </b>" + assets;
     document.getElementById("resources_productivity").innerHTML = "<b>Productivity: </b>" + productivity;
     document.getElementById("btn_click").innerHTML = "<b>Create Assets</b><br>Assets/Click: " + clickPower;
-    document.getElementById("stats").innerHTML = "Websites Created: " + stat_website + "<br>Total Assets Produced: " + stat_asset + "<br>Total Money Acquired" + stat_money;";
+    document.getElementById("statscreen").innerHTML = "Websites Created: " + stat_website + "<br>Total Assets Produced: " + Math.round(stat_asset * 10) / 10 + "<br>Total Money Acquired: " + stat_money;"<br>Employees Hired: " + stat_employees;
 }
 </script>
 </head>
@@ -100,17 +102,19 @@ function updateText() {
 
     <div class="basicdiv" style="float:right;">
 
-        <h2>-Upgrades-<br></h2>
+        <h2>-Work-<br></h2>
         <button id="btn_website" type="button" onclick="basic_money(150, 50)"><b>Design Website</b><br>50 Assets, +$150</button>
         <button id="btn_hire" type="button" onclick="basic_assets(1, 200)"><b>Hire Employee</b><br>$200, +1 Productivity</button>
         <button id="btn_logo" type="button" onclick="basic_money(20, 10)"><b>Design Logo</b><br>10 Assets, +$20</button>
         <button id="btn_applet" type="button" onclick=""><b></b><br></button>
 
     </div>
+    
+    <div claSS="basicdiv">
 
     <div class="basicdiv">
         <h2>-Stats-</h2>
-        <p id="stats"></p>
+        <p id="statscreen"></p>
     </div>
 </body>
 </html>
