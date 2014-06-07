@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html>
+<title>Super Extreme Ordinary Webpage</title>
+<head>
+<link href='http://fonts.googleapis.com/css?family=Kavoon' rel='stylesheet' type='text/css'>
+
+<style>p {font-family: Verdana, sans-serif}</style>
+<style>h2 {font-family:'Kavoon', Calbiri, sans-serif;color:#FEFEFE;text-align:center;text-shadow:0px 0px 6px #000}</style>
+<style>h3 {font-family: Verdana, Calbiri, sans-serif;color:black;text-align:center}</style>
+
+<style>.basicdiv {border:1px solid #000000;padding: 20px 20px;height: 400px;overflow:scroll}</style>
+<style>.grey {color:grey}</style>
+    
+<script>
+var productivity = 0;
+var clickPower = 1;
+var assets = 0;
+var currency = 0;
+var income = 0;
+
+//stats
+var stat_website = 0;
+var stat_asset = 0;
+var stat_money = 0;
+
+function startJS() {
+    setInterval("intervalGain()", 100);
+    setInterval("updateText()", 100);
+}
+
+function _click() {
+    assets += clickPower;
+    stat_asset += clickPower;
+}
+
+function basic_money(c, a) {
+    if (assets >= a) {
+        currency += c;
+        assets -= a;
+        stat_money += c;
+    }
+}
+
+function basic_income(i, c, a) {
+    if (currency >= c && assets >= a) {
+        income += i;
+        currency -= c;
+        assets -= a;
+    }
+}
+function basic_assets(a, c) {
+    if (currency >= c) {
+        productivity += a;
+        currency -= c;
+    }
+}
+function basic_production(p, c, a) {
+    if (currency >= c && assets >= a) {
+        clickPower += p;
+        currency -= c;
+        assets -= a;
+    }
+}
+
+function intervalGain() {
+    currency += income;
+    assets += productivity;
+    stat_money += income / 10;
+    stat_asset += productivity / 10;
+}
+
+function updateText() {
+    document.getElementById("resources_currency").innerHTML = "<b>Currency: </b>$" + currency;
+    document.getElementById("resources_income").innerHTML = "<b>Income: </b>" + income;
+    document.getElementById("resources_assets").innerHTML = "<b>Assets: </b>" + assets;
+    document.getElementById("resources_productivity").innerHTML = "<b>Productivity: </b>" + productivity;
+    document.getElementById("btn_click").innerHTML = "<b>Create Assets</b><br>Assets/Click: " + clickPower;
+    document.getElementById("stats").innerHTML = "Websites Created: " + stat_website + "<br>Total Assets Produced: " + stat_asset + "<br>Total Money Acquired" + stat_money;";
+}
+</script>
+</head>
+<body onload="startJS()">
+    <div style="background-color:#11AAFF;border:5px solid #0000CC;border-radius:20px;padding: 20px 20px">
+
+        <h1 style="font-family:Kavoon, Verdana, sans-serif;color:#77DDFF;text-shadow:1px 1px 2px #0000CC;text-align: center">Start-up Business Simulator</h1>
+
+    </div>
+
+    <div class="basicdiv" style="float:left;">
+
+        <h2>-Resource Buttons-<br></h2>
+        <button id="btn_click" type="button" onclick="_click()"><b>Create Assets</b><br>Assets/Click: 1</button>
+
+        <h2>-Resources-</h2>
+        <p id="resources_assets">Assets: </p>
+        <p id="resources_productivity">Productivity: </p>
+        <p id="resources_currency">Currency: </p>
+        <p id="resources_income">Income: </p>
+    </div>
+
+    <div class="basicdiv" style="float:right;">
+
+        <h2>-Upgrades-<br></h2>
+        <button id="btn_website" type="button" onclick="basic_money(150, 50)"><b>Design Website</b><br>50 Assets, +$150</button>
+        <button id="btn_hire" type="button" onclick="basic_assets(1, 200)"><b>Hire Employee</b><br>$200, +1 Productivity</button>
+        <button id="btn_logo" type="button" onclick="basic_money(20, 10)"><b>Design Logo</b><br>10 Assets, +$20</button>
+        <button id="btn_applet" type="button" onclick=""><b></b><br></button>
+
+    </div>
+
+    <div class="basicdiv">
+        <h2>-Stats-</h2>
+        <p id="stats"></p>
+    </div>
+</body>
+</html>
