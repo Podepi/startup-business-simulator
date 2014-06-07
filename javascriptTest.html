@@ -10,6 +10,7 @@
 
 <style>.basicdiv {border:1px solid #000000;padding: 20px 20px;height: 400px;overflow:scroll}</style>
 <style>.grey {color:grey}</style>
+<style>.basicbtn {width:150px;}</style>
     
 <script>
 var productivity = 0;
@@ -51,9 +52,10 @@ function basic_income(i, c, a) {
         assets -= a;
     }
 }
-function basic_assets(a, c) {
+function basic_assets(a, c, s) {
     if (currency >= c) {
         productivity += a;
+        assets += s
         currency -= c;
     }
 }
@@ -66,20 +68,20 @@ function basic_production(p, c, a) {
     }
 }
 function description(desc) {
-    document.getElementById("DescriptionText").innerHTML = "Description: " + desc;
+    document.getElementById("DescriptionText").innerHTML = "<b>Description: </b>" + desc;
 }
 function intervalGain() {
     currency += income / 10;
     assets += productivity / 10;
-    stat_money += income;
-    stat_asset += productivity;
+    stat_money += income / 10;
+    stat_asset += productivity / 10;
 }
 
 function updateText() {
-    document.getElementById("resources_currency").innerHTML = "<b>Currency: </b>$" + currency;
-    document.getElementById("resources_income").innerHTML = "<b>Income: </b>" + income;
+    document.getElementById("resources_currency").innerHTML = "<b>Currency: </b>$" + Math.round(currency * 10) / 10;
+    document.getElementById("resources_income").innerHTML = "<b>Income: </b>" + Math.round(income * 10) / 10;
     document.getElementById("resources_assets").innerHTML = "<b>Assets: </b>" + Math.round(assets * 10) / 10;
-    document.getElementById("resources_productivity").innerHTML = "<b>Productivity: </b>" + productivity;
+    document.getElementById("resources_productivity").innerHTML = "<b>Productivity: </b>" + Math.round(productivity * 10) / 10;
     document.getElementById("statscreen").innerHTML = "Websites Created: " + stat_website + "<br>Total Assets Produced: " + Math.round(stat_asset * 10) / 10 + "<br>Total Money Acquired: $" + stat_money;"<br>Employees Hired: " + stat_employees;
 }
 </script>
@@ -90,12 +92,19 @@ function updateText() {
         <h1 style="font-family:Kavoon, Verdana, sans-serif;color:#77DDFF;text-shadow:1px 1px 2px #0000CC;text-align: center">Start-up Business Simulator <sup style="color:#77DDFF;font-family:Calbiri, sans-serif;font-size:10px;text-align: center">Alpha</sup> </h1>
         
     </div>
-
+    
+    <div style="position = fixed;bottom:0px; background-color:white; border:1px solid #000; height = 200px;border-radius">
+    <p id="DescriptionText">Description:</p>
+    </div>
+    
     <div class="basicdiv" style="float:left;">
 
         <h2>-Resource Buttons-<br></h2>
-        <button id="btn_click" type="button" onclick="_click()" onclick="description("")"><b>Create Assets</b><br>Assets/Click: 1</button>
-
+        
+        <div class="center">
+        <button id="btn_click" type="button" onclick="_click()" onmouseover="description('Create some assets for your next project.')"><b>Create Assets</b><br>Assets/Click: 1</button>
+        </div>
+        
         <h2>-Resources-</h2>
         <p id="resources_assets">Assets: </p>
         <p id="resources_productivity">Productivity: </p>
@@ -106,14 +115,17 @@ function updateText() {
     <div class="basicdiv" style="float:right;">
 
         <h2>-Work-<br></h2>
+        <div class="center">
         <table><tr>
-        <td><button id="btn_website" type="button" onclick="basic_money(150, 50)"><b>Design Website</b><br>500 Assets, +$150</button></td>
-        <td><button id="btn_hire" type="button" onclick="basic_assets(0.2, 200)"><b>Hire Employee</b><br>$200, +1 Productivity</button></td>
+        <td><button class="basicbtn" id="btn_logo" type="button" onclick="basic_money(20, 10)" onmouseover="description('Design a logo for money.')"><img src="omega.svg" width=32px height=32px><br><b>Design Logo</b><br>10 Assets, +$20</button></td>
+        <td><button class="basicbtn" id="btn_hire" type="button" onclick="basic_assets(0.3, 200, 0)" onmouseover="description('Hire an employee to create assets for you.')"><img src="back-up.svg" width=32px height=32px><br><b>Hire Employee</b><br>$200, +0.3 Productivity</button></td>
         <tr>
-        <td><button id="btn_logo" type="button" onclick="basic_money(20, 10)"><b>Design Logo</b><br>10 Assets, +$20</button></td>
-        <td><button id="btn_applet" type="button" onclick="basic_income(2, 0, 2000)"><b>Program App (LQ)</b><br>2000 Assets, +$2/s</button></td>
+        <td><button class="basicbtn" id="btn_website" type="button" onclick="basic_money(150, 500)" onmouseover="description('Design a website for money.')"><img src="web.svg" width=32px height=32px><br><b>Design Website</b><br>500 Assets, +$150</button></td>
+        <td><button class="basicbtn" id="btn_purchase" type="button" onclick="basic_assets(0, 100, 70)" onmouseover="description('Buy assets created by others to use in your next project.')"><img src="cash.svg" width=32px height=32px><br><b>Purchase Assets</b><br>$100, +70 Assets</button></td>
+        <tr>
+        <td><button class="basicbtn" id="btn_applet" type="button" onclick="basic_income(2, 0, 2000)" onmouseover="description('Program a mobile app as a source of regular income.')"><img src="smartphone.svg" width=32px height=32px><br><b>Program App</b><br>2000 Assets, +$2/s</button></td>
         </table>
-        
+        </div>
     </div>
     
     <div class="basicdiv">
@@ -123,8 +135,7 @@ function updateText() {
         
     </div>
     
-    <div style="position = fixed;bottom:0px; background-color:white; border:2px solid #000; height = 200px;">
-    <p>Description:</p>
-    </div>
 </body>
+<footer><p>Most of the icons used are modified versions of originals from <a href="http://game-icons.net/">game-icons.net<a/>, under the CC-BY license. More information on the authors can be found <a href="http://game-icons.net/about.html#authors">here.</a>
+</p>
 </html>
