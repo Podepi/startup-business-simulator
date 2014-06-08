@@ -4,204 +4,85 @@
 <head>
 <link href='http://fonts.googleapis.com/css?family=Kavoon' rel='stylesheet' type='text/css'>
 
-<style>p {font-family: Verdana, sans-serif}</style>
-<style>h2 {font-family:'Kavoon', Calbiri, sans-serif;color:#FEFEFE;text-align:center;text-shadow:0px 0px 6px #000}</style>
-<style>h3 {font-family: Verdana, Calbiri, sans-serif;color:black;text-align:center}</style>
+<style>
+p {font-family: Verdana, sans-serif}
+h2 {font-family:'Kavoon', Calbiri, sans-serif;color:#FEFEFE;text-align:center;text-shadow:0px 0px 6px #000}
+h3 {font-family: Verdana, Calbiri, sans-serif;color:black;text-align:center}
+li {float:left}
+ul {list-style-type: none; margin: 0; padding: 0;}
 
-<style>.basicdiv {border:1px solid #000000;padding: 20px 20px;height: 400px;overflow:scroll}</style>
-<style>.grey {color:grey}</style>
-<style>.basicbtn {width:150px;}</style>
+.basicdiv {border:1px solid #000000;padding: 20px 20px;height: 600px}
+.center {text-align="center"}
+.navtext {color: #FFF; font-family:'Kavoon', Calbiri, sans-serif; font-size: 15px; text-decoration: none}
+.basicbtn {width:150px;}
+.marketbtn {width: 30px;}
+.navbarelement {display: block; width: 60px; text-align:center; background-color: #985000}
+</style>
     
 <script>
 var productivity = 0;
 var clickPower = 1;
 var workPower = 1;
-var assets = 0;
-var currency = 0;
-var income = 0;
-var efficiency = 0.3;
+var metal = 0;
+var gold = 0;
 
 //stats
 var stat_a1 = 0;
 var stat_a2 = 0;
 var stat_a3 = 0;
 var stat_a4 = 0;
-var stat_asset = 0;
-var stat_buyasset = 0;
+var stat_metal = 0;
+var stat_buymetal = 0;
 var stat_money = 0;
 var stat_employees = 0;
 
 function startJS() {
-    setInterval("intervalGain()", 100);
     setInterval("updateText()", 100);
-    document.getElementById("btn_click").innerHTML = "<img src='checkbox-tree.svg' alt='assets' width='32' height='32'><br><b>Create Assets</b><br>Assets/Click: " + clickPower;
-    document.getElementById("btn_click2").innerHTML = "<img src='metal-disc.svg' alt='coins' width='32' height='32'><br><b>Work</b><br>Money/Click: $" + workPower;
-}
-
-function aclick() {
-    assets += clickPower;
-    stat_asset += clickPower;
-}
-
-function wclick() {
-    currency += workPower;
-    stat_money += workPower;
-}
-
-function basic_money(c, a) {
-    if (assets >= a) {
-        currency += c;
-        assets -= a;
-        stat_money += c;
-    }
-}
-
-function basic_income(i, c, a) {
-    if (currency >= c && assets >= a) {
-        income += i;
-        currency -= c;
-        assets -= a;
-    }
-}
-
-function basic_assets(c, s) {
-    if (currency >= c) {
-        assets += s
-        currency -= c;
-    }
-}
-
-function basic_production(p, c, a) {
-    if (currency >= c && assets >= a) {
-        clickPower += p;
-        currency -= c;
-        assets -= a;
-        document.getElementById("btn_click").innerHTML = "<img src='checkbox-tree.svg' alt='assets' width='32' height='32'><br><b>Create Assets</b><br>Assets/Click: " + clickPower;
-        document.getElementById("btn_click2").innerHTML = "<img src='metal-disc.svg' alt='coins' width='32' height='32'><br><b>Work</b><br>Money/Click: $" + workPower;
-    }
+    
 }
 
 function description(desc) {
     document.getElementById("DescriptionText").innerHTML = "<b>Description: </b>" + desc;
 }
 
-function upgrade(a, t, c) {
-    if (currency >= c) {
-        var upg_btn = document.getElementById("upg_" + a);
-        var path = upg_btn.parentNode;
-        path.removeChild(upg_btn);
-        if(t === "u1") {
-            efficiency *= 1.5;
-        }
-        currency -= c;
-    }
-}
-
-function stat_increase(s) {
-    if (s === "a1") {
-        stat_a1 += 1;
-    } if (s === "a2") {
-        stat_a2 += 1;
-    } if (s === "a3") {
-        stat_a3 += 1;
-    } if (s === "e") {
-        stat_employees += 1;
-    } if (s === "ba") {
-        stat_buyasset += 70;
-    }
-}
-
-function intervalGain() {
-    productivity = stat_employees * efficiency;
-    currency += income / 10;
-    assets += productivity / 10;
-    stat_money += income / 10;
-    stat_asset += productivity / 10;
-}
-
 function updateText() {
-    document.getElementById("resources_currency").innerHTML = "<b>Currency: </b>$" + Math.round(currency * 10) / 10;
-    document.getElementById("resources_income").innerHTML = "<b>Income: </b>" + Math.round(income * 10) / 10;
-    document.getElementById("resources_assets").innerHTML = "<b>Assets: </b>" + Math.round(assets * 10) / 10;
-    document.getElementById("resources_productivity").innerHTML = "<b>Productivity: </b>" + Math.round(productivity * 10) / 10;
-    document.getElementById("statscreen").innerHTML = "Logos Designed: " + stat_a1 + 
-    "<br>Websites Created: " + stat_a2 + 
-    "<br>Total Assets Produced: " + Math.round(stat_asset * 10) / 10 + 
-    "<br>Total Money Acquired: $" + Math.round(stat_money * 10) / 10 + 
-    "<br>Employees Hired: " + stat_employees + 
-    "<br>Employee Efficiency: " + Math.round(efficiency * 10) / 10 + 
-    "<br>Assets Bought: " + stat_buyasset;
+    document.getElementById("resources_gold").innerHTML = "<b>Gold: </b>$" + Math.round(gold);
 }
 
 function updateBTNText() {
-    document.getElementById("btn_logo").innerHTML = "" + ;
-    document.getElementById("btn_hire").innerHTML = "" + ;
-    document.getElementById("btn_website").innerHTML = "" + ;
-    document.getElementById("btn_purchase").innerHTML = "" + ;
-    document.getElementById("btn_applet").innerHTML = "" + ;
+    
 }
 </script>
 </head>
 <body onload="startJS()">
-    <div style="background-color:#11AAFF;border:5px solid #0000CC;border-radius:20px;padding: 20px 20px">
+    <div style="background-image:url('woodbackground.jpg');border:5px solid #DDD;border-radius:20px;padding: 20px 20px">
 
-        <h1 style="font-family:Kavoon, Verdana, sans-serif;color:#77DDFF;text-shadow:1px 1px 2px #0000CC;text-align: center">Start-up Business Simulator <sup style="color:#77DDFF;font-family:Calbiri, sans-serif;font-size:10px;text-align: center">Alpha</sup> </h1>
-        
-    </div>
-    
-    <div style="position = fixed;bottom:0px; background-color:white; height = 150px;border-radius">
-    <p id="DescriptionText" style="text-align:center;">Description:</p>
-    </div>
-    
-    <div class="basicdiv" style="float:left;">
-
-        <h2>-Resource Buttons-<br></h2>
+        <h1 style="font-family:Kavoon, Verdana, sans-serif;color:#DDD;text-shadow:1px 1px 4px #000;text-align: center">RPG Adventurer <sup style="color:#DDD;font-family:Calbiri, sans-serif;font-size:10px;text-align: center">Alpha</sup> </h1>
         
         <div class="center">
-        <button id="btn_click" type="button" onclick="aclick()" onmouseover="description('Create some assets for your next project.')"><b>Create Assets</b><br>Assets/Click: 1</button>
-        <button id="btn_click2" type="button" onclick="wclick()" onmouseover="description('Work for money.')"><b>Work</b><br>Money/Click: $1</button>
+        <ul>
+            <li class="navbarelement"><a href="javascript:navbar('town')" class="navtext">Town</a></li>
+            <li class="navbarelement"><a href="javascript:navbar('map')" class="navtext">Map</a></li>
+            <li class="navbarelement"><a href="javascript:navbar('inv')" class="navtext">Inventory</a></li>
+        </ul>
         </div>
-        
     </div>
-
-    <div class="basicdiv" style="float:right;">
-
-        <h2>-Actions-<br></h2>
-        <div class="center">
-        <table><tr>
-        <td><button class="basicbtn" id="btn_logo" type="button" onclick="basic_money(10, 10); stat_increase('a1')" onmouseover="description('Design a logo for money.')"><img src="omega.svg" width=32px height=32px><br><b>Design Logo</b><br>10 Assets, +$10</button></td>
-        <td><button class="basicbtn" id="btn_hire" type="button" onclick="basic_assets(200, 0); stat_increase('e')" onmouseover="description('Hire an employee to create assets for you.')"><img src="back-up.svg" width=32px height=32px><br><b>Hire Employee</b><br>$200, +0.3 Productivity</button></td>
-        <tr>
-        <td><button class="basicbtn" id="btn_website" type="button" onclick="basic_money(100, 100); stat_increase('a2')" onmouseover="description('Design a website for money.')"><img src="web.svg" width=32px height=32px><br><b>Design Website</b><br>100 Assets, +$100</button></td>
-        <td><button class="basicbtn" id="btn_purchase" type="button" onclick="basic_assets(100, 70); stat_increase('ba')" onmouseover="description('Pay someone to supply assets for your next project.')"><img src="cash.svg" width=32px height=32px><br><b>Purchase Assets</b><br>$100, +70 Assets</button></td>
-        <tr>
-        <td><button class="basicbtn" id="btn_applet" type="button" onclick="basic_income(2, 0, 2000); stat_increase('a3')" onmouseover="description('Program a mobile game as a source of regular income.')"><img src="smartphone.svg" width=32px height=32px><br><b>Program Mobile Game</b><br>2000 Assets, +$2/s</button></td>
-        </table>
-        </div>
+    
+    <div style="height = 150px;">
+    <p id="DescriptionText" style="text-align:center;"><b>Description: </b>Mouse over something to view its description.</p>
     </div>
     
     <div class="basicdiv" style="float:right;">
 
-        <h2>-Upgrades-<br></h2>
-        <div class="center">
-        <button class="basicbtn" id="upg_1" type="button" onclick="upgrade(1, 'u1', 500); updateBTNText()" onmouseover="description('Increases effectiveness of all employees by 50%')"><img src="radar-dish.svg" width=32px height=32px><br><b>Improved Office</b><br>$500</button>
-        <br>
-        <button class="basicbtn" id="upg_2" type="button" onclick="upgrade(2, 'u2', 1000); updateBTNText()" onmouseover="description('-7% to assets required for all actions')"><img src="nodular.svg" width=32px height=32px><br><b>Efficient workspace</b><br>$1000</button>
-        <br>
-        <button class="basicbtn" id="upg_3" type="button" onclick="" onmouseover="description('')"><img src="smartphone.svg" width=32px height=32px><br><b></b><br></button>
-        </div>
-    </div>
-    
-    <div class="basicdiv">
-    
         <h2>-Resources-</h2>
-        <p id="resources_assets">Assets: </p>
-        <p id="resources_productivity">Productivity: </p>
-        <p id="resources_currency">Currency: </p>
-        <p id="resources_income">Income: </p>
+        <p id="resources_gold">Gold: </p>
         
         <h2>-Stats-</h2>
         <p id="statscreen"></p>
+        
+    </div>
+    
+    <div class="basicdiv" >
         
     </div>
     
