@@ -20,25 +20,55 @@ ul {list-style-type: none; margin: 0; padding: 0;}
 </style>
     
 <script>
-var productivity = 0;
-var clickPower = 1;
-var workPower = 1;
-var metal = 0;
+var experience = 0;
+var level = 1;
+var locations = ["dungeon", "traveller", "alchemist", "treasure"];
+var timer = 0;
 var gold = 0;
-
-//stats
-var stat_a1 = 0;
-var stat_a2 = 0;
-var stat_a3 = 0;
-var stat_a4 = 0;
-var stat_metal = 0;
-var stat_buymetal = 0;
-var stat_money = 0;
-var stat_employees = 0;
+var weaponLevel = 1;
+var armourLevel = 1;
 
 function startJS() {
-    setInterval("updateText()", 100);
-    
+    setInterval(on_tick, 100);
+}
+
+function explore() {
+    timer = 10;
+    if (timer < 0) {
+    var rand = locations[Math.floor(Math.random() * locations.length)];
+    if (rand === "dungeon") {
+        document.getElementById("txt_location").innerHTML = "You have stumbled upon a level " + level + " dungeon!<br>";
+        document.getElementById("btn_location01").innerHTML = "Enter Dungeon";
+        document.getElementById("btn_location01").onclick = "dungeon(level)";
+    }
+    if (rand === "traveller") {
+        var w = weaponLevel + Math.floor(Math.random * 20) - 10;
+        var a = armourLevel + Math.floor(Math.random * 20) - 10;
+        document.getElementById("txt_location").innerHTML = "You have met a travelling merchant!<br>";
+        document.getElementById("btn_location01").innerHTML = "Upgrade weapon";
+        document.getElementById("btn_location01").onclick = "upgrade(1, 0, c)";
+        document.getElementById("btn_location02").innerHTML = "Upgrade armour";
+        document.getElementById("btn_location02").onclick = "upgrade(0, 1, a)";
+    }
+    if (rand === "alchemist") {
+        document.getElementById("txt_location").innerHTML = "You have found an alchemist's hut!<br>";
+        document.getElementById("btn_location01").innerHTML = "Buy health potion";
+        document.getElementById("btn_location01").onclick = "potion(1, c)";
+    }}
+}
+
+function dungeon(l) {
+    document.getElementById("txt_location").innerHTML = "You have found an alchemist's hut!<br>";
+    document.getElementById("btn_location01").innerHTML = "Buy health potion";
+    document.getElementById("btn_location01").onclick = "potion(1, c)";
+    document.getElementById("btn_location02").innerHTML = "Upgrade armour";
+    document.getElementById("btn_location02").onclick = "upgrade(0, 1, a)";
+}
+
+function upgrade(w, a, c) {
+    weaponLevel += w;
+    armourLevel += a;
+    gold -= c;
 }
 
 function description(desc) {
@@ -46,12 +76,9 @@ function description(desc) {
 }
 
 function updateText() {
-    document.getElementById("resources_gold").innerHTML = "<b>Gold: </b>$" + Math.round(gold);
-}
-
-function updateBTNText() {
     
 }
+
 </script>
 </head>
 <body onload="startJS()">
@@ -75,15 +102,16 @@ function updateBTNText() {
     <div class="basicdiv" style="float:right;">
 
         <h2>-Resources-</h2>
-        <p id="resources_gold">Gold: </p>
         
         <h2>-Stats-</h2>
         <p id="statscreen"></p>
         
     </div>
     
-    <div class="basicdiv" >
-        
+    <div class="basicdiv" style="text-align:center">
+        <button onclick="explore()" onmouseover="description('Explore the surrounding lands')">Explore</button>
+        <p id="txt_location">You are currently not exploring</p>
+        <button id="btn_location01"></button>
     </div>
     
 </body>
