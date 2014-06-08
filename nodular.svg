@@ -48,29 +48,35 @@
      inkscape:window-maximized="0"
      inkscape:current-layer="svg3192" />
   <g
-     transform="matrix(15 0 0 15 -4844 -44)"
-     id="g3196"
-     style="fill:#000000">
-    <use
-       width="744.094"
-       height="1052.362"
-       transform="translate(360)"
-       id="use3198"
-       style="fill:#000000" />
+     id="g3001"
+     transform="matrix(0,1,-1,0,511.99925,-7.5e-4)">
+    <g
+       style="fill:#000000"
+       id="g3196"
+       transform="matrix(15,0,0,15,-4844,-44)">
+      <use
+         style="fill:#000000"
+         id="use3198"
+         transform="translate(360,0)"
+         height="1052.3621"
+         width="744.09399"
+         x="0"
+         y="0" />
+      <path
+         style="fill:#000000"
+         id="path3200"
+         d="m 340,4 a 6,6 0 0 0 -1,11.9062 v 3.25 a 4,4 0 0 0 0,7.7188 v 3.3125 a 3,3 0 0 0 1,5.8125 3,3 0 0 0 1,-5.8125 v -3.3438 a 4,4 0 0 0 0,-7.7188 V 15.9061 A 6,6 0 0 0 340,3.9999 z m -0.1875,2 A 4,4 0 0 1 340,6 a 4,4 0 0 1 0,8 4.0011,4.0011 0 0 1 -0.1875,-8 z"
+         inkscape:connector-curvature="0" />
+    </g>
     <path
-       fill="#fff"
-       d="m340,4a6,6 0 0,0 -1,11.9062v3.25a4,4 0 0,0 0,7.7188v3.3125a3,3 0 0,0 1,5.8125 3,3 0 0,0 1-5.8125v-3.3438a4,4 0 0,0 0-7.7188v-3.2188a6,6 0 0,0 -1-11.9062zm-.1875,2a4,4 0 0,1 .1875,0 4,4 0 0,1 0,8 4.0011,4.0011 0 0,1 -.1875-8z"
-       id="path3200"
-       style="fill:#000000" />
+       transform="matrix(0.64150942,0,0,0.64150942,-12.29525,131.56316)"
+       d="m 475.11863,263.59323 c 0,31.75169 -25.73983,57.49152 -57.49152,57.49152 -31.7517,0 -57.49153,-25.73983 -57.49153,-57.49152 0,-31.75169 25.73983,-57.49152 57.49153,-57.49152 31.75169,0 57.49152,25.73983 57.49152,57.49152 z"
+       sodipodi:ry="57.491524"
+       sodipodi:rx="57.491524"
+       sodipodi:cy="263.59323"
+       sodipodi:cx="417.62711"
+       id="path3210"
+       style="fill:#ffffff;fill-opacity:1;stroke:none"
+       sodipodi:type="arc" />
   </g>
-  <path
-     sodipodi:type="arc"
-     style="fill:#ffffff;fill-opacity:1;stroke:none"
-     id="path3210"
-     sodipodi:cx="417.62711"
-     sodipodi:cy="263.59323"
-     sodipodi:rx="57.491524"
-     sodipodi:ry="57.491524"
-     d="m 475.11863,263.59323 a 57.491524,57.491524 0 1 1 -114.98305,0 57.491524,57.491524 0 1 1 114.98305,0 z"
-     transform="matrix(0.64150942,0,0,0.64150942,-12.29525,131.56316)" />
 </svg>

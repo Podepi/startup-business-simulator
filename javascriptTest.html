@@ -85,12 +85,15 @@ function description(desc) {
     document.getElementById("DescriptionText").innerHTML = "<b>Description: </b>" + desc;
 }
 
-function upgrade(a, t) {
-    var upg_btn = document.getElementById("upg_" + a);
-    var path = upg_btn.parentNode;
-    path.removeChild(upg_btn);
-    if(t === "u1") {
-        efficiency *= 1.5;
+function upgrade(a, t, c) {
+    if (currency >= c) {
+        var upg_btn = document.getElementById("upg_" + a);
+        var path = upg_btn.parentNode;
+        path.removeChild(upg_btn);
+        if(t === "u1") {
+            efficiency *= 1.5;
+        }
+        currency -= c;
     }
 }
 
@@ -129,6 +132,14 @@ function updateText() {
     "<br>Employee Efficiency: " + Math.round(efficiency * 10) / 10 + 
     "<br>Assets Bought: " + stat_buyasset;
 }
+
+function updateBTNText() {
+    document.getElementById("btn_logo").innerHTML = "" + ;
+    document.getElementById("btn_hire").innerHTML = "" + ;
+    document.getElementById("btn_website").innerHTML = "" + ;
+    document.getElementById("btn_purchase").innerHTML = "" + ;
+    document.getElementById("btn_applet").innerHTML = "" + ;
+}
 </script>
 </head>
 <body onload="startJS()">
@@ -158,11 +169,11 @@ function updateText() {
         <h2>-Actions-<br></h2>
         <div class="center">
         <table><tr>
-        <td><button class="basicbtn" id="btn_" type="button" onclick="basic_money(10, 10); stat_increase('a1')" onmouseover="description('Design a logo for money.')"><img src="omega.svg" width=32px height=32px><br><b>Design Logo</b><br>10 Assets, +$10</button></td>
-        <td><button class="basicbtn" id="btn_hire" type="button" onclick="basic_assets(1, 200, 0); stat_increase('e')" onmouseover="description('Hire an employee to create assets for you.')"><img src="back-up.svg" width=32px height=32px><br><b>Hire Employee</b><br>$200, +0.3 Productivity</button></td>
+        <td><button class="basicbtn" id="btn_logo" type="button" onclick="basic_money(10, 10); stat_increase('a1')" onmouseover="description('Design a logo for money.')"><img src="omega.svg" width=32px height=32px><br><b>Design Logo</b><br>10 Assets, +$10</button></td>
+        <td><button class="basicbtn" id="btn_hire" type="button" onclick="basic_assets(200, 0); stat_increase('e')" onmouseover="description('Hire an employee to create assets for you.')"><img src="back-up.svg" width=32px height=32px><br><b>Hire Employee</b><br>$200, +0.3 Productivity</button></td>
         <tr>
         <td><button class="basicbtn" id="btn_website" type="button" onclick="basic_money(100, 100); stat_increase('a2')" onmouseover="description('Design a website for money.')"><img src="web.svg" width=32px height=32px><br><b>Design Website</b><br>100 Assets, +$100</button></td>
-        <td><button class="basicbtn" id="btn_purchase" type="button" onclick="basic_assets(0, 100, 70); stat_increase('ba')" onmouseover="description('Pay someone to supply assets for your next project.')"><img src="cash.svg" width=32px height=32px><br><b>Purchase Assets</b><br>$100, +70 Assets</button></td>
+        <td><button class="basicbtn" id="btn_purchase" type="button" onclick="basic_assets(100, 70); stat_increase('ba')" onmouseover="description('Pay someone to supply assets for your next project.')"><img src="cash.svg" width=32px height=32px><br><b>Purchase Assets</b><br>$100, +70 Assets</button></td>
         <tr>
         <td><button class="basicbtn" id="btn_applet" type="button" onclick="basic_income(2, 0, 2000); stat_increase('a3')" onmouseover="description('Program a mobile game as a source of regular income.')"><img src="smartphone.svg" width=32px height=32px><br><b>Program Mobile Game</b><br>2000 Assets, +$2/s</button></td>
         </table>
@@ -173,9 +184,9 @@ function updateText() {
 
         <h2>-Upgrades-<br></h2>
         <div class="center">
-        <button class="basicbtn" id="upg_1" type="button" onclick="upgrade(1, 'u1', 500)" onmouseover="description('Increases effectiveness of all employees by 50%')"><img src="radar-dish.svg" width=32px height=32px><br><b>Improved Office</b><br>$500</button>
+        <button class="basicbtn" id="upg_1" type="button" onclick="upgrade(1, 'u1', 500); updateBTNText()" onmouseover="description('Increases effectiveness of all employees by 50%')"><img src="radar-dish.svg" width=32px height=32px><br><b>Improved Office</b><br>$500</button>
         <br>
-        <button class="basicbtn" id="upg_2" type="button" onclick="" onmouseover="description('')"><img src="cash.svg" width=32px height=32px><br><b></b><br></button>
+        <button class="basicbtn" id="upg_2" type="button" onclick="upgrade(2, 'u2', 1000); updateBTNText()" onmouseover="description('-7% to assets required for all actions')"><img src="nodular.svg" width=32px height=32px><br><b>Efficient workspace</b><br>$1000</button>
         <br>
         <button class="basicbtn" id="upg_3" type="button" onclick="" onmouseover="description('')"><img src="smartphone.svg" width=32px height=32px><br><b></b><br></button>
         </div>
