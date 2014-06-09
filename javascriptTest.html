@@ -11,11 +11,10 @@ h3 {font-family: Verdana, Calbiri, sans-serif;color:black;text-align:center}
 li {float:left}
 ul {list-style-type: none; margin: 0; padding: 0;}
 
-.basicdiv {border:1px solid #000000;padding: 20px 20px;height: 600px}
+.basicdiv {border:1px solid #000000;padding: 20px 20px;height: 400px}
 .center {text-align="center"}
 .navtext {color: #FFF; font-family:'Kavoon', Calbiri, sans-serif; font-size: 15px; text-decoration: none}
-.basicbtn {width:150px;}
-.marketbtn {width: 30px;}
+.basicbtn {width:100px; height:50px}
 .navbarelement {display: block; width: 60px; text-align:center; background-color: #985000}
 </style>
     
@@ -23,45 +22,116 @@ ul {list-style-type: none; margin: 0; padding: 0;}
 var experience = 0;
 var level = 1;
 var locations = ["dungeon", "traveller", "alchemist", "treasure"];
+var enemy_list = ["orc", "bandit", "golem", "spider", "bat", "wraith", "ghost", "troll", "ogre"];
+var chat_list = ["&quot;Hello.&quot;", "&quot;Do you want anything?&quot;", "&quot;Quit wasting my time.&quot;", "&quot;I don't have all day.&quot;"];
 var timer = 0;
 var gold = 0;
+var playerHealth = 20;
+var maxHealth = 20;
 var weaponLevel = 1;
 var armourLevel = 1;
+var descdefault = "Mouse over something to view its description.";
+var logText = " ";
 
 function startJS() {
-    setInterval(on_tick, 100);
+    updateText();
 }
 
-function explore() {
-    timer = 10;
-    if (timer < 0) {
+function explore_start() {
+    LogEvent("Exploring...");
+    window.setTimeout("explore_end()", 1000);
+    document.getElementById("txt_location").innerHTML = "Exploring...";
+    //btn1
+    document.getElementById("btn_location01").innerHTML = " ";
+    document.getElementById("btn_location01").onclick = "console.log('click')";
+    document.getElementById("btn_location01").onmouseover = "description(descdefault)";
+    //btn2
+    document.getElementById("btn_location02").innerHTML = " ";
+    document.getElementById("btn_location02").onclick = "console.log('click')";
+    document.getElementById("btn_location02").onmouseover = "description(descdefault)";
+    //btn3
+    document.getElementById("btn_location03").innerHTML = " ";
+    document.getElementById("btn_location03").onclick = "console.log('click')";
+    document.getElementById("btn_location03").onmouseover = "description(descdefault)";
+}
+
+function explore_end() {
     var rand = locations[Math.floor(Math.random() * locations.length)];
-    if (rand === "dungeon") {
-        document.getElementById("txt_location").innerHTML = "You have stumbled upon a level " + level + " dungeon!<br>";
+    console.log(rand);
+    switch(rand) {
+    case "dungeon":
+        document.getElementById("txt_location").innerHTML = "You have stumbled upon a level " + level + " dungeon!";
+        //btn1
         document.getElementById("btn_location01").innerHTML = "Enter Dungeon";
         document.getElementById("btn_location01").onclick = "dungeon(level)";
-    }
-    if (rand === "traveller") {
+        document.getElementById("btn_location01").onmouseover = "description('Enter the dungeon for fame and glory!')";
+        //btn2
+        document.getElementById("btn_location02").innerHTML = "";
+        document.getElementById("btn_location02").onclick = "upgrade(0, 1, a)";
+        document.getElementById("btn_location02").onmouseover = "description('Upgrade your armour to block more damage.')";
+        //btn3
+        document.getElementById("btn_location03").innerHTML = "Leave";
+        document.getElementById("btn_location03").onclick = "conversation()";
+        document.getElementById("btn_location03").onmouseover = "description('Chat with the merchant.')";
+        break;
+    case "traveller":
         var w = weaponLevel + Math.floor(Math.random * 20) - 10;
         var a = armourLevel + Math.floor(Math.random * 20) - 10;
-        document.getElementById("txt_location").innerHTML = "You have met a travelling merchant!<br>";
+        document.getElementById("txt_location").innerHTML = "You have met a travelling merchant!";
+        //btn1
         document.getElementById("btn_location01").innerHTML = "Upgrade weapon";
         document.getElementById("btn_location01").onclick = "upgrade(1, 0, c)";
+        document.getElementById("btn_location01").onmouseover = "description('Upgrade your weapon to deal more damage.')";
+        //btn2
         document.getElementById("btn_location02").innerHTML = "Upgrade armour";
-        document.getElementById("btn_location02").onclick = "upgrade(0, 1, a)";
-    }
-    if (rand === "alchemist") {
-        document.getElementById("txt_location").innerHTML = "You have found an alchemist's hut!<br>";
+        document.getElementById("btn_location02").onclick = "upgrade(0, 1, a); console.log('armour')";
+        document.getElementById("btn_location02").onmouseover = "description('Upgrade your armour to block more damage.')";
+        //btn3
+        document.getElementById("btn_location03").innerHTML = "Chat";
+        document.getElementById("btn_location03").onclick = "conversation()";
+        document.getElementById("btn_location03").onmouseover = "description('Chat with the merchant.')";
+        break;
+    case "alchemist":
+        var c = 10;
+        document.getElementById("txt_location").innerHTML = "You have found an alchemist's hut!";
+        //btn1
         document.getElementById("btn_location01").innerHTML = "Buy health potion";
-        document.getElementById("btn_location01").onclick = "potion(1, c)";
-    }}
+        document.getElementById("btn_location01").onclick = "potion(1, c); LogEvent('Bought potion')";
+        document.getElementById("btn_location01").onmouseover = "description('Buy a health potion to restore health during battle.')";
+        //btn2
+        document.getElementById("btn_location02").innerHTML = "Buy Elixir of Life";
+        document.getElementById("btn_location02").onclick = "potion(2, c*10); LogEvent('Bought Elixir of Life')";
+        document.getElementById("btn_location02").onmouseover = "description('Upgrade your maximum health.')";
+        //btn3
+        document.getElementById("btn_location03").innerHTML = "Chat";
+        document.getElementById("btn_location03").onclick = "conversation()";
+        document.getElementById("btn_location03").onmouseover = "description('Chat with the alchemist.')";
+        break;
+    case "treasure":
+        gold += 1;
+        document.getElementById("txt_location").innerHTML = "You found a penny!";
+        //btn1
+        document.getElementById("btn_location01").innerHTML = "Keep the coin";
+        document.getElementById("btn_location01").onclick = "reset_adventure(); LogEvent('Found penny!')";
+        document.getElementById("btn_location01").onmouseover = "description('Keep the penny.')";
+        //btn2
+        document.getElementById("btn_location02").innerHTML = "Donate to charity";
+        document.getElementById("btn_location02").onclick = "gold -= 1; LogEvent(Donated to charity!)";
+        document.getElementById("btn_location02").onmouseover = "description('Donate the penny to charity.')";
+        //btn3
+        document.getElementById("btn_location03").innerHTML = "Chat";
+        document.getElementById("btn_location03").onclick = "conversation(); LogEvent(Talked to a coin?)";
+        document.getElementById("btn_location03").onmouseover = "description('Chat with the coin (?)')";
+        break;
+    }
 }
 
 function dungeon(l) {
-    document.getElementById("txt_location").innerHTML = "You have found an alchemist's hut!<br>";
-    document.getElementById("btn_location01").innerHTML = "Buy health potion";
-    document.getElementById("btn_location01").onclick = "potion(1, c)";
-    document.getElementById("btn_location02").innerHTML = "Upgrade armour";
+    var enemy = enemy_list[Math.floor(Math.random() * enemy_list.length)];
+    document.getElementById("txt_location").innerHTML = "Inside the dungeon you have found a " + enemy + "!";
+    document.getElementById("btn_location01").innerHTML = "Attack enemy";
+    document.getElementById("btn_location01").onclick = "attack()";
+    document.getElementById("btn_location02").innerHTML = "Use health potion";
     document.getElementById("btn_location02").onclick = "upgrade(0, 1, a)";
 }
 
@@ -71,15 +141,31 @@ function upgrade(w, a, c) {
     gold -= c;
 }
 
+function conversation() {
+    var chat = chat_list[Math.floor(Math.random() * chat_list.length)];
+    document.getElementById("txt_location").innerHTML = chat;
+    LogEvent(chat);
+}
+
+function LogEvent(t) {
+    logText = t + "<br>" + logText;
+    updateText();
+}
+
 function description(desc) {
     document.getElementById("DescriptionText").innerHTML = "<b>Description: </b>" + desc;
 }
 
 function updateText() {
-    
+    document.getElementById("txt_log").innerHTML = logText;
+    document.getElementById("statscreen").innerHTML = "Weapon level: " + weaponLevel + 
+    "<br>Armour level: " + armourLevel + 
+    "<br>Health: " + playerHealth + 
+    "<br>Gold: " + gold;
 }
 
 </script>
+
 </head>
 <body onload="startJS()">
     <div style="background-image:url('woodbackground.jpg');border:5px solid #DDD;border-radius:20px;padding: 20px 20px">
@@ -95,23 +181,27 @@ function updateText() {
         </div>
     </div>
     
-    <div style="height = 150px;">
-    <p id="DescriptionText" style="text-align:center;"><b>Description: </b>Mouse over something to view its description.</p>
-    </div>
-    
     <div class="basicdiv" style="float:right;">
 
-        <h2>-Resources-</h2>
-        
         <h2>-Stats-</h2>
         <p id="statscreen"></p>
         
     </div>
     
-    <div class="basicdiv" style="text-align:center">
-        <button onclick="explore()" onmouseover="description('Explore the surrounding lands')">Explore</button>
+    <div class="basicdiv" style="text-align:center;">
+        <p id="DescriptionText" style="text-align:center;"><b>Description: </b>Mouse over something to view its description.</p>
+        
+        <button onclick="explore_start()" onmouseover="description('Explore the surrounding lands')">Explore</button>
+        
         <p id="txt_location">You are currently not exploring</p>
-        <button id="btn_location01"></button>
+        <button id="btn_location01" onclick="console.log('click')" type="button" class="basicbtn"></button>
+        <button id="btn_location02" onclick="console.log('click')" type="button" class="basicbtn"></button>
+        <button id="btn_location03" onclick="console.log('click')" type="button" class="basicbtn"></button>
+    </div>
+    
+    <div style="text-align:center; overflow:scroll; border: 1px solid black; height:200px;">
+        <h2>-Log-</h2>
+        <p id="txt_log"></p>
     </div>
     
 </body>
