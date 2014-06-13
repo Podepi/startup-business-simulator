@@ -12,9 +12,10 @@ li {float:left}
 ul {list-style-type: none; margin: 0; padding: 0;}
 
 .basicdiv {border:1px solid #000000;padding: 20px 20px;height: 400px}
-.center {text-align="center"}
+.center {text-align:"center"; justify-content:"center"}
 .navtext {color: #FFF; font-family:'Kavoon', Calbiri, sans-serif; font-size: 15px; text-decoration: none}
-.basicbtn {width:100px; height:50px}
+.basicbtn {width:64px; height:64px; border:2px solid white;}
+.basicbtn:hover {border:2px solid grey;}
 .navbarelement {display: block; width: 60px; text-align:center; background-color: #985000}
 </style>
     
@@ -70,7 +71,7 @@ function explore_end() {
         document.getElementById("btn_location02").onclick = "upgrade(0, 1, a)";
         document.getElementById("btn_location02").onmouseover = "description('Upgrade your armour to block more damage.')";
         //btn3
-        document.getElementById("btn_location03").innerHTML = "Leave";
+        document.getElementById("btn_location03").innerHTML = "Leave<br>asdf";
         document.getElementById("btn_location03").onclick = "conversation()";
         document.getElementById("btn_location03").onmouseover = "description('Chat with the merchant.')";
         break;
@@ -87,7 +88,7 @@ function explore_end() {
         document.getElementById("btn_location02").onclick = "upgrade(0, 1, a); console.log('armour')";
         document.getElementById("btn_location02").onmouseover = "description('Upgrade your armour to block more damage.')";
         //btn3
-        document.getElementById("btn_location03").innerHTML = "Chat";
+        document.getElementById("btn_location03").innerHTML = "Chat<br>";
         document.getElementById("btn_location03").onclick = "conversation()";
         document.getElementById("btn_location03").onmouseover = "description('Chat with the merchant.')";
         break;
@@ -103,7 +104,7 @@ function explore_end() {
         document.getElementById("btn_location02").onclick = "potion(2, c*10); LogEvent('Bought Elixir of Life')";
         document.getElementById("btn_location02").onmouseover = "description('Upgrade your maximum health.')";
         //btn3
-        document.getElementById("btn_location03").innerHTML = "Chat";
+        document.getElementById("btn_location03").innerHTML = "Chat<br>asdf";
         document.getElementById("btn_location03").onclick = "conversation()";
         document.getElementById("btn_location03").onmouseover = "description('Chat with the alchemist.')";
         break;
@@ -139,6 +140,7 @@ function upgrade(w, a, c) {
     weaponLevel += w;
     armourLevel += a;
     gold -= c;
+    updateText();
 }
 
 function conversation() {
@@ -194,14 +196,17 @@ function updateText() {
         <button onclick="explore_start()" onmouseover="description('Explore the surrounding lands')">Explore</button>
         
         <p id="txt_location">You are currently not exploring</p>
-        <button id="btn_location01" onclick="console.log('click')" type="button" class="basicbtn"></button>
-        <button id="btn_location02" onclick="console.log('click')" type="button" class="basicbtn"></button>
-        <button id="btn_location03" onclick="console.log('click')" type="button" class="basicbtn"></button>
+        
+        <img src="dagger.svg" id="btn_location01" onclick="console.log('click')" onmouseover="description(descdefault)" type="button" class="basicbtn"></img>
+        <img src="knapsack.svg" id="btn_location02" onclick="console.log('click')" onmouseover="description(descdefault)" type="button" class="basicbtn"></img>
+        <img src="dagger.svg" id="btn_location03" onclick="console.log('click')" onmouseover="description(descdefault)" type="button" class="basicbtn"></img>
+        
     </div>
     
-    <div style="text-align:center; overflow:scroll; border: 1px solid black; height:200px;">
-        <h2>-Log-</h2>
+    <div style="text-align:left; overflow:scroll; border: 1px solid black; height:200px;">
+        <h2 style="text-align:left">-Log-</h2>
         <p id="txt_log"></p>
+        
     </div>
     
 </body>

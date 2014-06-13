@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Created with Inkscape (http://www.inkscape.org/) -->
+
+<svg
+   xmlns:dc="http://purl.org/dc/elements/1.1/"
+   xmlns:cc="http://creativecommons.org/ns#"
+   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+   xmlns:svg="http://www.w3.org/2000/svg"
+   xmlns="http://www.w3.org/2000/svg"
+   version="1.1"
+   width="32"
+   height="32"
+   id="svg2985">
+  <defs
+     id="defs2987" />
+  <metadata
+     id="metadata2990">
+    <rdf:RDF>
+      <cc:Work
+         rdf:about="">
+        <dc:format>image/svg+xml</dc:format>
+        <dc:type
+           rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
+        <dc:title></dc:title>
+      </cc:Work>
+    </rdf:RDF>
+  </metadata>
+  <g
+     id="layer1">
+    <path
+       d="M 17.387206,7.3203474 27.103533,1.5922468 24.20775,12.94908 12.859667,23.650147 9.7340531,21.283611 z"
+       id="path2993"
+       style="fill:#808080;stroke:#3f3f3f;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1" />
+    <path
+       d="M 26.657017,2.3513242 11.56477,22.08734 z"
+       id="path3763"
+       style="fill:#a05a2c;stroke:#666666;stroke-width:0.69999999;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none" />
+    <path
+       d="m 8.6177627,22.265947 3.5274783,2.7684 -5.7000857,5.972483 -2.5802741,-2.039967 z"
+       id="path3767"
+       style="fill:#784421;stroke:#502d16;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1" />
+    <path
+       d="m 7.4568205,19.497547 7.5014725,5.670756 1.65211,-0.223259 -1.786065,1.607459 -8.8410209,-6.787047 1.4735034,-2.143277 z"
+       id="path3765"
+       style="fill:#a05a2c;stroke:#a05a2c;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1" />
+    <path
+       d="m 5.6832234,26.664085 2.6521709,2.368009 z"
+       id="path3769"
+       style="fill:none;stroke:#502d16;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1" />
+    <path
+       d="M 7.4513373,24.327648 10.48239,26.664085 z"
+       id="path3771"
+       style="fill:none;stroke:#502d16;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1" />
+  </g>
+</svg>
