@@ -12,6 +12,8 @@
 <style>.grey {color:grey}</style>
 <style>.basicbtn {width:150px;}</style>
     
+<script src="jquery-2.1.1.min.js"></script>
+
 <script>
 var productivity = 0;
 var clickPower = 1;
@@ -34,8 +36,7 @@ var stat_employees = 0;
 function startJS() {
     setInterval("intervalGain()", 100);
     setInterval("updateText()", 100);
-    document.getElementById("btn_click").innerHTML = "<img src='checkbox-tree.svg' alt='assets' width='32' height='32'><br><b>Create Assets</b><br>Assets/Click: " + clickPower;
-    document.getElementById("btn_click2").innerHTML = "<img src='metal-disc.svg' alt='coins' width='32' height='32'><br><b>Work</b><br>Money/Click: $" + workPower;
+    $("#btn_click").html("<img src='checkbox-tree.svg' alt='assets' width='32' height='32'><br><b>Create Assets</b><br>Assets/Click: " + clickPower);
 }
 
 function aclick() {
@@ -43,46 +44,8 @@ function aclick() {
     stat_asset += clickPower;
 }
 
-function wclick() {
-    currency += workPower;
-    stat_money += workPower;
-}
-
-function basic_money(c, a) {
-    if (assets >= a) {
-        currency += c;
-        assets -= a;
-        stat_money += c;
-    }
-}
-
-function basic_income(i, c, a) {
-    if (currency >= c && assets >= a) {
-        income += i;
-        currency -= c;
-        assets -= a;
-    }
-}
-
-function basic_assets(c, s) {
-    if (currency >= c) {
-        assets += s
-        currency -= c;
-    }
-}
-
-function basic_production(p, c, a) {
-    if (currency >= c && assets >= a) {
-        clickPower += p;
-        currency -= c;
-        assets -= a;
-        document.getElementById("btn_click").innerHTML = "<img src='checkbox-tree.svg' alt='assets' width='32' height='32'><br><b>Create Assets</b><br>Assets/Click: " + clickPower;
-        document.getElementById("btn_click2").innerHTML = "<img src='metal-disc.svg' alt='coins' width='32' height='32'><br><b>Work</b><br>Money/Click: $" + workPower;
-    }
-}
-
 function description(desc) {
-    document.getElementById("DescriptionText").innerHTML = "<b>Description: </b>" + desc;
+    $("#DescriptionText").html("<b>Description: </b>" + desc);
 }
 
 function upgrade(a, t, c) {
@@ -98,15 +61,15 @@ function upgrade(a, t, c) {
 }
 
 function stat_increase(s) {
-    if (s === "a1") {
+    if (s === "a1" && assets >= 10) {
         stat_a1 += 1;
-    } if (s === "a2") {
+    } if (s === "a2" && assets >= 100) {
         stat_a2 += 1;
-    } if (s === "a3") {
+    } if (s === "a3" && assets >= 2000) {
         stat_a3 += 1;
-    } if (s === "e") {
+    } if (s === "e" && currency >= 200) {
         stat_employees += 1;
-    } if (s === "ba") {
+    } if (s === "ba" && currency >= 100) {
         stat_buyasset += 70;
     }
 }
@@ -120,17 +83,17 @@ function intervalGain() {
 }
 
 function updateText() {
-    document.getElementById("resources_currency").innerHTML = "<b>Currency: </b>$" + Math.round(currency * 10) / 10;
-    document.getElementById("resources_income").innerHTML = "<b>Income: </b>" + Math.round(income * 10) / 10;
-    document.getElementById("resources_assets").innerHTML = "<b>Assets: </b>" + Math.round(assets * 10) / 10;
-    document.getElementById("resources_productivity").innerHTML = "<b>Productivity: </b>" + Math.round(productivity * 10) / 10;
-    document.getElementById("statscreen").innerHTML = "Logos Designed: " + stat_a1 + 
+    $("#resources_currency").html("<b>Currency: </b>$" + Math.round(currency * 10) / 10);
+    $("#resources_income").html("<b>Income: </b>" + Math.round(income * 10) / 10);
+    $("#resources_assets").html("<b>Assets: </b>" + Math.round(assets * 10) / 10);
+    $("#resources_productivity").html("<b>Productivity: </b>" + Math.round(productivity * 10) / 10);
+    $("#statscreen").html("Logos Designed: " + stat_a1 + 
     "<br>Websites Created: " + stat_a2 + 
     "<br>Total Assets Produced: " + Math.round(stat_asset * 10) / 10 + 
     "<br>Total Money Acquired: $" + Math.round(stat_money * 10) / 10 + 
     "<br>Employees Hired: " + stat_employees + 
     "<br>Employee Efficiency: " + Math.round(efficiency * 10) / 10 + 
-    "<br>Assets Bought: " + stat_buyasset;
+    "<br>Assets Bought: " + stat_buyasset);
 }
 
 function updateBTNText() {
@@ -159,7 +122,6 @@ function updateBTNText() {
         
         <div class="center">
         <button id="btn_click" type="button" onclick="aclick()" onmouseover="description('Create some assets for your next project.')"><b>Create Assets</b><br>Assets/Click: 1</button>
-        <button id="btn_click2" type="button" onclick="wclick()" onmouseover="description('Work for money.')"><b>Work</b><br>Money/Click: $1</button>
         </div>
         
     </div>
@@ -169,13 +131,13 @@ function updateBTNText() {
         <h2>-Actions-<br></h2>
         <div class="center">
         <table><tr>
-        <td><button class="basicbtn" id="btn_logo" type="button" onclick="basic_money(10, 10); stat_increase('a1')" onmouseover="description('Design a logo for money.')"><img src="omega.svg" width=32px height=32px><br><b>Design Logo</b><br>10 Assets, +$10</button></td>
-        <td><button class="basicbtn" id="btn_hire" type="button" onclick="basic_assets(200, 0); stat_increase('e')" onmouseover="description('Hire an employee to create assets for you.')"><img src="back-up.svg" width=32px height=32px><br><b>Hire Employee</b><br>$200, +0.3 Productivity</button></td>
+        <td><button class="basicbtn" id="btn_logo" type="button" onclick="stat_increase('a1')" onmouseover="description('Design a logo for money.')"><img src="omega.svg" width=32px height=32px><br><b>Design Logo</b><br>10 Assets, +$10</button></td>
+        <td><button class="basicbtn" id="btn_hire" type="button" onclick="stat_increase('e')" onmouseover="description('Hire an employee to create assets for you.')"><img src="back-up.svg" width=32px height=32px><br><b>Hire Employee</b><br>$200, +0.3 Productivity</button></td>
         <tr>
-        <td><button class="basicbtn" id="btn_website" type="button" onclick="basic_money(100, 100); stat_increase('a2')" onmouseover="description('Design a website for money.')"><img src="web.svg" width=32px height=32px><br><b>Design Website</b><br>100 Assets, +$100</button></td>
-        <td><button class="basicbtn" id="btn_purchase" type="button" onclick="basic_assets(100, 70); stat_increase('ba')" onmouseover="description('Pay someone to supply assets for your next project.')"><img src="cash.svg" width=32px height=32px><br><b>Purchase Assets</b><br>$100, +70 Assets</button></td>
+        <td><button class="basicbtn" id="btn_website" type="button" onclick="stat_increase('a2')" onmouseover="description('Design a website for money.')"><img src="web.svg" width=32px height=32px><br><b>Design Website</b><br>100 Assets, +$100</button></td>
+        <td><button class="basicbtn" id="btn_purchase" type="button" onclick="stat_increase('ba')" onmouseover="description('Pay someone to supply assets for your next project.')"><img src="cash.svg" width=32px height=32px><br><b>Purchase Assets</b><br>$100, +70 Assets</button></td>
         <tr>
-        <td><button class="basicbtn" id="btn_applet" type="button" onclick="basic_income(2, 0, 2000); stat_increase('a3')" onmouseover="description('Program a mobile game as a source of regular income.')"><img src="smartphone.svg" width=32px height=32px><br><b>Program Mobile Game</b><br>2000 Assets, +$2/s</button></td>
+        <td><button class="basicbtn" id="btn_applet" type="button" onclick="stat_increase('a3')" onmouseover="description('Program a mobile game as a source of regular income.')"><img src="smartphone.svg" width=32px height=32px><br><b>Program Mobile Game</b><br>2000 Assets, +$2/s</button></td>
         </table>
         </div>
     </div>
