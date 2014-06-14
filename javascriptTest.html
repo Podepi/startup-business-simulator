@@ -63,14 +63,21 @@ function upgrade(a, t, c) {
 function stat_increase(s) {
     if (s === "a1" && assets >= 10) {
         stat_a1 += 1;
+        currency += 10;
+        assets -= 10;
     } if (s === "a2" && assets >= 100) {
         stat_a2 += 1;
+        currency += 120;
+        assets -= 10;
     } if (s === "a3" && assets >= 2000) {
         stat_a3 += 1;
+        income += 2;
+        assets -= 2000;
     } if (s === "e" && currency >= 200) {
         stat_employees += 1;
     } if (s === "ba" && currency >= 100) {
         stat_buyasset += 70;
+        assets += 70;
     }
 }
 
@@ -134,7 +141,7 @@ function updateBTNText() {
         <td><button class="basicbtn" id="btn_logo" type="button" onclick="stat_increase('a1')" onmouseover="description('Design a logo for money.')"><img src="omega.svg" width=32px height=32px><br><b>Design Logo</b><br>10 Assets, +$10</button></td>
         <td><button class="basicbtn" id="btn_hire" type="button" onclick="stat_increase('e')" onmouseover="description('Hire an employee to create assets for you.')"><img src="back-up.svg" width=32px height=32px><br><b>Hire Employee</b><br>$200, +0.3 Productivity</button></td>
         <tr>
-        <td><button class="basicbtn" id="btn_website" type="button" onclick="stat_increase('a2')" onmouseover="description('Design a website for money.')"><img src="web.svg" width=32px height=32px><br><b>Design Website</b><br>100 Assets, +$100</button></td>
+        <td><button class="basicbtn" id="btn_website" type="button" onclick="stat_increase('a2')" onmouseover="description('Design a website for money.')"><img src="web.svg" width=32px height=32px><br><b>Design Website</b><br>100 Assets, +$120</button></td>
         <td><button class="basicbtn" id="btn_purchase" type="button" onclick="stat_increase('ba')" onmouseover="description('Pay someone to supply assets for your next project.')"><img src="cash.svg" width=32px height=32px><br><b>Purchase Assets</b><br>$100, +70 Assets</button></td>
         <tr>
         <td><button class="basicbtn" id="btn_applet" type="button" onclick="stat_increase('a3')" onmouseover="description('Program a mobile game as a source of regular income.')"><img src="smartphone.svg" width=32px height=32px><br><b>Program Mobile Game</b><br>2000 Assets, +$2/s</button></td>
