@@ -18,7 +18,9 @@ ul {list-style-type: none; margin: 0; padding: 0;}
 .basicbtn:hover {border:2px solid grey;}
 .navbarelement {display: block; width: 60px; text-align:center; background-color: #985000}
 </style>
-    
+
+<script src="jquery-2.1.1.min.js"></script>
+
 <script>
 var experience = 0;
 var level = 1;
@@ -41,19 +43,13 @@ function startJS() {
 function explore_start() {
     LogEvent("Exploring...");
     window.setTimeout("explore_end()", 1000);
-    document.getElementById("txt_location").innerHTML = "Exploring...";
+    $("#txt_location").html = "Exploring...";
     //btn1
-    document.getElementById("btn_location01").innerHTML = " ";
-    document.getElementById("btn_location01").onclick = "console.log('click')";
-    document.getElementById("btn_location01").onmouseover = "description(descdefault)";
+    $("#btn_location01").hide();
     //btn2
-    document.getElementById("btn_location02").innerHTML = " ";
-    document.getElementById("btn_location02").onclick = "console.log('click')";
-    document.getElementById("btn_location02").onmouseover = "description(descdefault)";
+    $("#btn_location02").hide();
     //btn3
-    document.getElementById("btn_location03").innerHTML = " ";
-    document.getElementById("btn_location03").onclick = "console.log('click')";
-    document.getElementById("btn_location03").onmouseover = "description(descdefault)";
+    $("#btn_location03").hide();
 }
 
 function explore_end() {
@@ -61,91 +57,109 @@ function explore_end() {
     console.log(rand);
     switch(rand) {
     case "dungeon":
-        document.getElementById("txt_location").innerHTML = "You have stumbled upon a level " + level + " dungeon!";
+        $("#txt_location").text("You have stumbled upon a level " + level + " dungeon!");
         //btn1
-        document.getElementById("btn_location01").innerHTML = "Enter Dungeon";
-        document.getElementById("btn_location01").onclick = "dungeon(level)";
-        document.getElementById("btn_location01").onmouseover = "description('Enter the dungeon for fame and glory!')";
+        $("#btn_location01").show();
+        $("#btn_location01").html("Enter Dungeon");
+        $("#btn_location01").click(dungeon(level));
+        $("#btn_location01").mouseenter(description('Enter the dungeon for fame and glory!'));
         //btn2
-        document.getElementById("btn_location02").innerHTML = "";
-        document.getElementById("btn_location02").onclick = "upgrade(0, 1, a)";
-        document.getElementById("btn_location02").onmouseover = "description('Upgrade your armour to block more damage.')";
+        $("#btn_location02").hide();
         //btn3
-        document.getElementById("btn_location03").innerHTML = "Leave<br>asdf";
-        document.getElementById("btn_location03").onclick = "conversation()";
-        document.getElementById("btn_location03").onmouseover = "description('Chat with the merchant.')";
+        $("#btn_location03").show();
+        $("#btn_location03").html("Leave<br>asdf");
+        $("#btn_location03").click(conversation());
+        $("#btn_location03").mouseenter(description('Chat with the merchant.'));
         break;
     case "traveller":
         var w = weaponLevel + Math.floor(Math.random * 20) - 10;
         var a = armourLevel + Math.floor(Math.random * 20) - 10;
-        document.getElementById("txt_location").innerHTML = "You have met a travelling merchant!";
+        $("#txt_location").html = "You have met a travelling merchant!";
         //btn1
-        document.getElementById("btn_location01").innerHTML = "Upgrade weapon";
-        document.getElementById("btn_location01").onclick = "upgrade(1, 0, c)";
-        document.getElementById("btn_location01").onmouseover = "description('Upgrade your weapon to deal more damage.')";
+        $("#btn_location01").show();
+        $("#btn_location01").html("Upgrade weapon");
+        $("#btn_location01").click(upgrade(1, 0, w));
+        $("#btn_location01").mouseenter(description('Upgrade your weapon to deal more damage.'));
         //btn2
-        document.getElementById("btn_location02").innerHTML = "Upgrade armour";
-        document.getElementById("btn_location02").onclick = "upgrade(0, 1, a); console.log('armour')";
-        document.getElementById("btn_location02").onmouseover = "description('Upgrade your armour to block more damage.')";
+        $("#btn_location02").show();
+        $("#btn_location02").html("Upgrade armour");
+        $("#btn_location02").click(upgrade(0, 1, a));
+        $("#btn_location02").mouseenter(description('Upgrade your armour to block more damage.'));
         //btn3
-        document.getElementById("btn_location03").innerHTML = "Chat<br>";
-        document.getElementById("btn_location03").onclick = "conversation()";
-        document.getElementById("btn_location03").onmouseover = "description('Chat with the merchant.')";
+        $("#btn_location03").show();
+        $("#btn_location03").html("Chat<br>");
+        $("#btn_location03").click(conversation());
+        $("#btn_location03").mouseenter(description('Chat with the merchant.'));
         break;
     case "alchemist":
         var c = 10;
-        document.getElementById("txt_location").innerHTML = "You have found an alchemist's hut!";
+        $("#txt_location").html("You have found an alchemist's hut!");
         //btn1
-        document.getElementById("btn_location01").innerHTML = "Buy health potion";
-        document.getElementById("btn_location01").onclick = "potion(1, c); LogEvent('Bought potion')";
-        document.getElementById("btn_location01").onmouseover = "description('Buy a health potion to restore health during battle.')";
+        $("#btn_location01").show();
+        $("#btn_location01").html("Buy health potion");
+        $("#btn_location01").click(potion(1, c), LogEvent('Bought potion'));
+        $("#btn_location01").mouseenter(description('Buy a health potion to restore health during battle.'));
         //btn2
-        document.getElementById("btn_location02").innerHTML = "Buy Elixir of Life";
-        document.getElementById("btn_location02").onclick = "potion(2, c*10); LogEvent('Bought Elixir of Life')";
-        document.getElementById("btn_location02").onmouseover = "description('Upgrade your maximum health.')";
+        $("#btn_location02").show();
+        $("#btn_location02").html("Buy Elixir of Life");
+        $("#btn_location02").click(potion(2, c*10), LogEvent('Bought Elixir of Life'));
+        $("#btn_location02").mouseenter(description('Upgrade your maximum health.'));
         //btn3
-        document.getElementById("btn_location03").innerHTML = "Chat<br>asdf";
-        document.getElementById("btn_location03").onclick = "conversation()";
-        document.getElementById("btn_location03").onmouseover = "description('Chat with the alchemist.')";
+        $("#btn_location03").show();
+        $("#btn_location03").html("Chat<br>asdf");
+        $("#btn_location03").click(conversation());
+        $("#btn_location03").mouseenter(description('Chat with the alchemist.'));
         break;
     case "treasure":
         gold += 1;
-        document.getElementById("txt_location").innerHTML = "You found a penny!";
+        $("#txt_location").html("You found a penny!");
         //btn1
-        document.getElementById("btn_location01").innerHTML = "Keep the coin";
-        document.getElementById("btn_location01").onclick = "reset_adventure(); LogEvent('Found penny!')";
-        document.getElementById("btn_location01").onmouseover = "description('Keep the penny.')";
+        $("#btn_location01").show();
+        $("#btn_location01").html("Keep the coin");
+        $("#btn_location01").click(reset_adventure(), LogEvent('Found penny!'));
+        $("#btn_location01").mouseenter(description('Keep the penny.'));
         //btn2
-        document.getElementById("btn_location02").innerHTML = "Donate to charity";
-        document.getElementById("btn_location02").onclick = "gold -= 1; LogEvent(Donated to charity!)";
-        document.getElementById("btn_location02").onmouseover = "description('Donate the penny to charity.')";
+        $("#btn_location02").show();
+        $("#btn_location02").html("Donate to charity");
+        $("#btn_location02").click(gold -= 1, LogEvent("Donated to charity!"));
+        $("#btn_location02").mouseenter(description('Donate the penny to charity.'));
         //btn3
-        document.getElementById("btn_location03").innerHTML = "Chat";
-        document.getElementById("btn_location03").onclick = "conversation(); LogEvent(Talked to a coin?)";
-        document.getElementById("btn_location03").onmouseover = "description('Chat with the coin (?)')";
+        $("#btn_location03").show();
+        $("#btn_location03").html("Chat");
+        $("#btn_location03").click(conversation(), LogEvent("Talked to a coin?"));
+        $("#btn_location03").mouseenter(description('Chat with the coin (?)'));
         break;
     }
 }
 
 function dungeon(l) {
     var enemy = enemy_list[Math.floor(Math.random() * enemy_list.length)];
-    document.getElementById("txt_location").innerHTML = "Inside the dungeon you have found a " + enemy + "!";
-    document.getElementById("btn_location01").innerHTML = "Attack enemy";
-    document.getElementById("btn_location01").onclick = "attack()";
-    document.getElementById("btn_location02").innerHTML = "Use health potion";
-    document.getElementById("btn_location02").onclick = "upgrade(0, 1, a)";
+    $("#txt_location").html = "Inside the dungeon you have found a " + enemy + "!";
+    //btn01
+    $("#btn_location01").show();
+    $("#btn_location01").html = "Attack enemy";
+    $("#btn_location01").onclick = "attack()";
+    //btn02
+    $("#btn_location02").show();
+    $("#btn_location02").html = "Use health potion";
+    $("#btn_location02").onclick = "upgrade(0, 1, a)";
 }
 
 function upgrade(w, a, c) {
-    weaponLevel += w;
-    armourLevel += a;
-    gold -= c;
-    updateText();
+    if(gold >= c) {
+        weaponLevel += w;
+        armourLevel += a;
+        gold -= c;
+        updateText();
+        LogEent('Upgraded equipment')
+    } else {
+        LogEvent("You don't have enough gold");
+    }
 }
 
 function conversation() {
     var chat = chat_list[Math.floor(Math.random() * chat_list.length)];
-    document.getElementById("txt_location").innerHTML = chat;
+    $("#txt_location").html(chat);
     LogEvent(chat);
 }
 
@@ -155,15 +169,15 @@ function LogEvent(t) {
 }
 
 function description(desc) {
-    document.getElementById("DescriptionText").innerHTML = "<b>Description: </b>" + desc;
+    $("#DescriptionText").html("<b>Description: </b>" + desc);
 }
 
 function updateText() {
-    document.getElementById("txt_log").innerHTML = logText;
-    document.getElementById("statscreen").innerHTML = "Weapon level: " + weaponLevel + 
+    $("#txt_log").html(logText);
+    $("#statscreen").html("Weapon level: " + weaponLevel + 
     "<br>Armour level: " + armourLevel + 
     "<br>Health: " + playerHealth + 
-    "<br>Gold: " + gold;
+    "<br>Gold: " + gold);
 }
 
 </script>
